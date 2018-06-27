@@ -1,17 +1,24 @@
-package model;
+package com.codecool.todo.model;
 
-import java.util.UUID;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "TODO")
 public class Todo {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String title;
-    private String id;
     private Status status;
 
-    public Todo(String title, String id, Status status) {
+    public Todo(String title, Status status) {
         this.title = title;
-        this.id = id;
         this.status = status;
+    }
+
+    public Todo() {
     }
 
     public String getTitle() {
@@ -22,12 +29,8 @@ public class Todo {
         this.title = title;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Status getStatus() {
@@ -43,7 +46,7 @@ public class Todo {
     }
 
     public static Todo create(String title) {
-        return new Todo(title, UUID.randomUUID().toString(), Status.ACTIVE);
+        return new Todo(title, Status.ACTIVE);
     }
 
 }
